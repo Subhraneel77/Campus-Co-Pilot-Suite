@@ -3,9 +3,9 @@
   <p><em>An intelligent, unified conversational interface for seamless campus utility management.</em></p>
 </div>
 
- <div align="center"><img src="assets/images/hero-dashboard1.png" alt="Campus Co-Pilot Hero Interface" width="800" /></div>
+ <div align="center"><img src="assets/images/hero-dashboard1.png" alt="Campus Co-Pilot Hero Interface1" width="800" /></div>
 
- <div align="center"><img src="assets/images/hero-dashboard2.png" alt="Campus Co-Pilot Hero Interface" width="800" /></div>
+ <div align="center"><img src="assets/images/hero-dashboard2.png" alt="Campus Co-Pilot Hero Interface2" width="800" /></div>
 
 ## 📖 Overview
 
