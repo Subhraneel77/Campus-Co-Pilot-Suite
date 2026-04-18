@@ -3,13 +3,9 @@
   <p><em>An intelligent, unified conversational interface for seamless campus utility management.</em></p>
 </div>
 
-<!-- ========================================== -->
-<!-- 📸 INSERT HERO IMAGE HERE -->
-<!-- Suggested Image: A large screenshot of the Master Hub dashboard in Dark Mode showing the urgency gradients -->
-<!-- Format: <div align="center"><img src="assets/images/hero-dashboard.png" alt="Campus Co-Pilot Hero Interface" width="800" /></div> -->
-<!-- ========================================== -->
+ <div align="center"><img src="assets/images/hero-dashboard1.png" alt="Campus Co-Pilot Hero Interface" width="800" /></div>
 
----
+ <div align="center"><img src="assets/images/hero-dashboard2.png" alt="Campus Co-Pilot Hero Interface" width="800" /></div>
 
 ## 📖 Overview
 
@@ -25,13 +21,7 @@ This repository features an elegant **React/Vite frontend** coupled with a high-
 - **Contextual In-Stream Utilities**: Live data widgets (e.g., study updates, location maps) render gracefully *inside* the conversational flow, bypassing the need for context-switching.
 - **Resilient Memory Management**: Operates seamlessly with a **local-by-default** memory engine, with a zero-config graceful degradation if the optional **Cognee** syncing is disabled or unavailable.
 
-<!-- ========================================== -->
-<!-- 📸 INSERT AUTOPILOT IMAGE HERE -->
-<!-- Suggested Image: A screenshot of the Autopilot computer overlay modal popping up over the dashboard -->
-<!-- Format: <img src="assets/images/autopilot-demo.png" alt="Autopilot Sequence" width="600" /> -->
-<!-- ========================================== -->
-
----
+ <img src="assets/images/autopilot-demo.png" alt="Autopilot Sequence" width="600" /> 
 
 ## 🛠 Tech Stack
 
