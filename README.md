@@ -21,7 +21,7 @@ This repository features an elegant **React/Vite frontend** coupled with a high-
 - **Contextual In-Stream Utilities**: Live data widgets (e.g., study updates, location maps) render gracefully *inside* the conversational flow, bypassing the need for context-switching.
 - **Resilient Memory Management**: Operates seamlessly with a **local-by-default** memory engine, with a zero-config graceful degradation if the optional **Cognee** syncing is disabled or unavailable.
 
- <img src="assets/images/autopilot-demo.png" alt="Autopilot Sequence" width="600" /> 
+ <img src="assets/images/autopilot-demo.png" alt="Autopilot Sequence" width="800" /> 
 
 ## 🛠 Tech Stack
 
