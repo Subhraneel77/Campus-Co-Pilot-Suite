@@ -6,6 +6,7 @@ import json
 import re
 from typing import Optional
 from urllib.parse import quote_plus
+import requests
 
 import httpx
 from fastapi import HTTPException, UploadFile
