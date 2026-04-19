@@ -1352,3 +1352,88 @@ textarea {
   color: #0f172a;
   box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
 }
+
+/* Agent Swarm Side Menu */
+.agent-swarm-sidebar {
+  position: absolute;
+  top: 120px;
+  left: 20px;
+  width: 240px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 16px;
+  color: white;
+  z-index: 15000;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  animation: slideRight 0.3s ease-out forwards;
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.agent-swarm-sidebar h4 {
+  margin: 0 0 12px 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.swarm-btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  background: #1e293b;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  color: #e2e8f0;
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.swarm-btn:hover {
+  background: #334155;
+  transform: translateX(2px);
+  border-color: #60a5fa;
+}
+
+.drafter-textarea {
+  width: 100%;
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #f8fafc;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: none;
+  line-height: 1.5;
+}
+
+.agent-swarm-sidebar.right-sidebar {
+  left: auto;
+  right: 20px;
+  animation: slideLeft 0.3s ease-out forwards;
+}
+
+@keyframes slideLeft {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.play-audio-btn {
+  background: #3b82f6;
+  border-color: #2563eb;
+}
+
+.play-audio-btn:hover {
+  background: #2563eb;
+  border-color: #1d4ed8;
+}

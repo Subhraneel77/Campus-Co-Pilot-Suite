@@ -7,6 +7,8 @@
 
  <div align="center"><img src="assets/images/hero-dashboard2.png" alt="Campus Co-Pilot Hero Interface2" width="800" /></div>
 
+---
+
 ## 📖 Overview
 
 The **Campus Co-Pilot Suite (Unified Assistant Edition)** revolutionizes campus utility interactions by transitioning from fragmented, multi-tab web interfaces into a **singular, highly cohesive assistant-first channel**. Under this paradigm, all campus utilities—ranging from dining menus to study session updates—are orchestrated directly through dynamic conversational flows rather than isolated dashboard widgets.
@@ -16,19 +18,21 @@ This repository features an elegant **React/Vite frontend** coupled with a high-
 ## ✨ Key Features & Architectural Enhancements
 
 - **Simulated Autonomous Execution (Autopilot)**: Features a robust autonomous execution workflow that requests semantic approval before executing massive cross-domain programmatic actions (e.g. Gmail & Google Calendar syncs).
-- **Assistant-First Paradigm**: The primary dashboard directly loads into an immersive assistant workspace, eliminating navigational friction.
-- **Multimodal Interaction**: Native support for both **text-based** typing and **voice-driven** queries, synchronized in real-time.
+- **Sub-Agent Swarm Architecture (Modular)**: A dynamic delegation UI where the Master Copilot isolates tasks to hyper-specialized sub-agents (e.g., an Email Drafter with live text-generation UI).
+- **Multimodal Accessibility**: Integrates native Web Speech API (`SpeechSynthesisUtterance`) to dictate urgent actions aloud for hands-free visual impairments and passive listening.
 - **Contextual In-Stream Utilities**: Live data widgets (e.g., study updates, location maps) render gracefully *inside* the conversational flow, bypassing the need for context-switching.
 - **Resilient Memory Management**: Operates seamlessly with a **local-by-default** memory engine, with a zero-config graceful degradation if the optional **Cognee** syncing is disabled or unavailable.
 
   <div align="center"><img src="assets/images/autopilot-demo.png" alt="Autopilot Sequence" width="800" /> 
+
+---
 
 ## 🛠 Tech Stack
 
 - **Frontend**: React 18, Vite (for optimized builds and HMR).
 - **Backend**: Python 3, FastAPI, Uvicorn (async execution).
 - **LLM Orchestration**: [Dify](https://dify.ai/) (Utilizing standard Chatflows).
-- **Voice Capabilities**: [ElevenLabs](https://elevenlabs.io/) (Handling STT & TTS).
+- **Voice Capabilities**: [ElevenLabs](https://elevenlabs.io/) (Handling STT & TTS) + Native Browser `SpeechSynthesis`.
 - **Memory Persistence**: Built-in Local Engine + [Cognee](https://github.com/topoteretes/cognee) (Optional Graph/Vector Memory).
 
 ---
@@ -127,4 +131,3 @@ To ensure seamless API communication, proper configuration of external providers
 ### ElevenLabs Configuration
 - Requires an active API key equipped with both **Speech-to-Text (STT)** and **Text-to-Speech (TTS)** quotas.
 - Verify your `.env` contains a valid `ELEVENLABS_VOICE_ID` (e.g., standard conversational voices like `JBFqnCBsd6RMkjVDRZzb`) and that your model is set to `eleven_multilingual_v2` for linguistic versatility.
-

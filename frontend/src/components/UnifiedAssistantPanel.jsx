@@ -87,6 +87,8 @@ export function UnifiedAssistantPanel({ home, onAction, onToast, onRefresh }) {
 
   const [autopilotMode, setAutopilotMode] = useState(false)
   const [autopilotQueue, setAutopilotQueue] = useState([])
+  const [activeSubAgent, setActiveSubAgent] = useState(null)
+  const [draftedEmailText, setDraftedEmailText] = useState("")
 
   const recorderRef = useRef(null)
   const streamRef = useRef(null)
@@ -109,6 +111,26 @@ export function UnifiedAssistantPanel({ home, onAction, onToast, onRefresh }) {
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
+
+  useEffect(() => {
+    if (activeSubAgent === 'email') {
+      const text = `Dear Project Partner,\n\nI noticed we have exactly 12 hours left until our Data Science Survival Skills submission. I've successfully resolved the primary model bottlenecks, but we need to coordinate the final report styling.\n\nCould we meet rapidly? I've pre-booked a slot in my calendar for us to finalize the turn-in.\n\nBest regards,\nYour Campus Co-Pilot`;
+      setDraftedEmailText("");
+      let currentIndex = 0;
+      const intervalId = setInterval(() => {
+        if (currentIndex < text.length - 1) {
+          setDraftedEmailText(prev => prev + text[currentIndex]);
+          currentIndex++;
+        } else {
+          setDraftedEmailText(text);
+          clearInterval(intervalId);
+        }
+      }, 15);
+      return () => clearInterval(intervalId);
+    } else {
+      setDraftedEmailText("");
+    }
+  }, [activeSubAgent]);
 
   const groupedSections = home?.sections || []
   const immediateItems = home?.immediate_items || []
@@ -146,6 +168,8 @@ export function UnifiedAssistantPanel({ home, onAction, onToast, onRefresh }) {
   function stopAutopilot() {
     setAutopilotMode(false);
     setAutopilotQueue([]);
+    setActiveSubAgent(null);
+    window.speechSynthesis?.cancel();
     onToast?.("Returned to Manual Mode.");
   }
 
@@ -157,6 +181,7 @@ export function UnifiedAssistantPanel({ home, onAction, onToast, onRefresh }) {
   }
 
   function advanceAutopilot() {
+    window.speechSynthesis?.cancel();
     setAutopilotQueue(prev => {
       const nextQ = prev.slice(1);
       if (nextQ.length === 0) {
@@ -168,6 +193,23 @@ export function UnifiedAssistantPanel({ home, onAction, onToast, onRefresh }) {
   }
 
   const activeAutopilotItem = autopilotMode && autopilotQueue.length > 0 ? autopilotQueue[0] : null;
+
+  function playAutopilotSpeech() {
+    if (!activeAutopilotItem) return;
+    window.speechSynthesis?.cancel();
+    let textToSpeak = '';
+    if (activeAutopilotItem.id === 'grade-ml') {
+      textToSpeak = "Hey, yesterday your Machine Learning grades came, it's quite good. You scored 1.3 german grade. Congratulations buddy. Keep it up.";
+    } else if (activeAutopilotItem.id === 'urgent-ds') {
+      textToSpeak = "I noticed you have a Data Science deadline in 12 hours. I have proactively drafted an email to your project partner and pre-reserved a 2-hour blocking slot in your calendar. Should I execute these now?";
+    } else {
+      textToSpeak = `I proactively identified: ${activeAutopilotItem.title}. I have prepared the relevant actions. Should I execute them?`;
+    }
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+    utterance.lang = 'en-US';
+    utterance.rate = 1.05;
+    window.speechSynthesis.speak(utterance);
+  }
 
   async function sendTextMessage(overrideText = null) {
     const query = (overrideText ?? input).trim()
@@ -274,6 +316,46 @@ export function UnifiedAssistantPanel({ home, onAction, onToast, onRefresh }) {
 
   return (
     <section className="assistant-one-channel">
+    {autopilotMode && (
+      <div className="agent-swarm-sidebar">
+        <h4>Active Sub-Agents</h4>
+        <button className="swarm-btn" onClick={() => setActiveSubAgent('email')}>📧 Email Drafter</button>
+        <button className="swarm-btn" onClick={() => onToast?.('Agent currently busy mapping data...')}>🧠 Assignment Solver</button>
+        <button className="swarm-btn" onClick={() => onToast?.('Agent is syncing with TUMonline...')}>📅 Schedule Optimizer</button>
+      </div>
+    )}
+
+    {autopilotMode && (
+      <div className="agent-swarm-sidebar right-sidebar">
+        <h4>Accessibility</h4>
+        <button className="swarm-btn play-audio-btn" onClick={playAutopilotSpeech}>🔊 Read Out Loud</button>
+        <button className="swarm-btn" onClick={() => window.speechSynthesis?.cancel()}>🔇 Stop Audio</button>
+      </div>
+    )}
+
+    {activeSubAgent === 'email' && (
+      <div className="autopilot-overlay" style={{ zIndex: 20000 }}>
+        <div className="autopilot-modal drafter-modal">
+          <h3 className="autopilot-head">📧 Email Drafter Agent</h3>
+          <div className="autopilot-body">
+            <textarea 
+              className="drafter-textarea" 
+              readOnly 
+              value={draftedEmailText + (draftedEmailText.length > 0 && !draftedEmailText.includes('Your Campus Co-Pilot') ? '▋' : '')}
+              rows={8}
+            />
+          </div>
+          <div className="autopilot-actions">
+            <button className="autopilot-btn accept" onClick={() => {
+              navigator.clipboard.writeText("Dear Project Partner,\n\nI noticed we have exactly 12 hours left until our Data Science Survival Skills submission. I've successfully resolved the primary model bottlenecks, but we need to coordinate the final report styling.\n\nCould we meet rapidly? I've pre-booked a slot in my calendar for us to finalize the turn-in.\n\nBest regards,\nYour Campus Co-Pilot");
+              onToast?.("Draft Copied to Clipboard!");
+              setActiveSubAgent(null);
+            }}>COPY TO CLIPBOARD</button>
+            <button className="autopilot-btn deny" onClick={() => setActiveSubAgent(null)}>CLOSE</button>
+          </div>
+        </div>
+      </div>
+    )}
     {activeAutopilotItem && (
       <div className="autopilot-overlay">
         <div className="autopilot-modal">
